@@ -1,0 +1,32 @@
+artifacts_root : artifacts
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  train_source_URL: https://github.com/shriadke/Job-Classification/raw/main/data/raw/raw_train.zip #https://github.com/shriadke/JobClassification/raw/master/data/raw/raw_job_data.zip
+  test_source_URL: https://github.com/shriadke/Job-Classification/raw/main/data/raw/raw_test.zip #https://github.com/shriadke/JobClassification/raw/master/data/raw/raw_job_data.zip
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion
+
+data_validation:
+  root_dir: artifacts/data_validation
+  STATUS_FILE: artifacts/data_validation/status.txt
+  ALL_REQUIRED_FILES: ["raw_train/train_data.csv","raw_test/test_data.csv"]
+
+data_transformation:
+  root_dir: artifacts/data_transformation
+  data_path: artifacts/data_ingestion/
+
+model_trainer:
+  root_dir: artifacts/model_trainer
+  data_path: artifacts/data_transformation
+  model_ckpt: msmarco-distilbert-base-v4
+ 
+model_evaluation:
+  root_dir: artifacts/model_evaluation
+  data_path: artifacts/data_transformation/
+  model_path: artifacts/model_trainer/saved-search-model # msmarco-distilbert-base-v4 #models/
+  classifier_path: artifacts/model_trainer/cls_models/
+  tokenizer_path: cross-encoder/ms-marco-MiniLM-L-6-v2
+  metric_file_name: artifacts/model_evaluation/metrics.csv
+  onet_embeddings: data/processed/embeddings/onet_custom_model_1/embd.pkl
+  lr_model_path: classifier/LR/model_20_sag.pkl

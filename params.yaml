@@ -1,0 +1,5 @@
+TrainingArguments:
+  special_tokens : ["TTL ", " [DESC] "]
+  num_train_epochs : 1
+  warmup_steps : 10
+  weight_decay : 0.01

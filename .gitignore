@@ -1,0 +1,7 @@
+# ignore this file
+logs/
+models/
+artifacts/*
+
+*.egg-info*
+__pycache__/*
