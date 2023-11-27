@@ -1,3 +1,7 @@
+import pandas as pd
+import csv
+import numpy as np
+import pickle
 import os
 from box.exceptions import BoxValueError
 import yaml
@@ -9,6 +13,10 @@ from typing import Any
 import nltk
 from nltk.corpus import stopwords
 import string
+from sentence_transformers import SentenceTransformer, models, util
+from sentence_transformers.util import cos_sim
+
+from sklearn.linear_model import LogisticRegression
 
 @ensure_annotations
 def read_yaml(path_to_yaml: Path) -> ConfigBox:
@@ -129,7 +137,7 @@ def get_clean_job_str(job_title, job_post):
 
     return job_str
 
-def get_all_onets(onet_data_path="All_Occupations.csv"):
+def get_all_onets(onet_data_path="./data/raw/All_Occupations.csv"):
     """ 
     This method returns list of all ONETs available on the official site
     
@@ -138,7 +146,9 @@ def get_all_onets(onet_data_path="All_Occupations.csv"):
     Output: : all_onets_original: list[str] --> all ONETs available
     """
     if not os.path.exists(onet_data_path):
+        print("No Onets found")
         return []
+    print("All Onets found")
     all_occupations_df = pd.read_csv(onet_data_path)
     all_onets_original = all_occupations_df.Occupation.to_list()
 
@@ -284,6 +294,7 @@ def get_job_embed_df_from_df(job_df=None,model=None, model_ckpt=None, job_embd_p
     
     print("Total Jobs available: ",len(job_df)) 
     return job_df
+
 def get_job_embd_df_frm_title_body(job_title, job_body, model=None, model_ckpt=None):
     job_df = pd.DataFrame({ "TITLE_RAW" : [job_title],
                             "BODY"      : [job_body], })

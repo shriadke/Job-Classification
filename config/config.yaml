@@ -24,9 +24,9 @@ model_trainer:
 model_evaluation:
   root_dir: artifacts/model_evaluation
   data_path: artifacts/data_transformation/
-  model_path: artifacts/model_trainer/saved-search-model # msmarco-distilbert-base-v4 #models/
+  model_path: artifacts/model_trainer/cls_models/classifier/sbert # msmarco-distilbert-base-v4 #models/
   classifier_path: artifacts/model_trainer/cls_models/
   tokenizer_path: cross-encoder/ms-marco-MiniLM-L-6-v2
   metric_file_name: artifacts/model_evaluation/metrics.csv
-  onet_embeddings: data/processed/embeddings/onet_custom_model_1/embd.pkl
-  lr_model_path: classifier/LR/model_20_sag.pkl
+  onet_embeddings: artifacts/data_transformation/embeddings/onet_custom_model_1/embd.pkl
+  lr_model_path: artifacts/model_trainer/cls_models/classifier/LR/model_20_sag.pkl

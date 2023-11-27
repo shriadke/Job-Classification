@@ -31,11 +31,15 @@ async def training():
 
 
 @app.post("/predict")
-async def predict_route(text):
+async def predict_route(text, body,tk):
     try:
-        job_title = text["title"]
-        job_body = text["body"]
-        top_k = text["top_k"]
+        job_title = text
+        job_body = body#text["body"]
+        top_k = tk#text["top_k"]
+        if top_k !="":
+            top_k = int(top_k)
+        else:
+            top_k = 1
 
         obj = PredictionPipeline()
         text = obj.predict(job_title,job_body, top_k)

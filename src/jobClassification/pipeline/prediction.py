@@ -15,16 +15,16 @@ from sklearn.linear_model import LogisticRegression
 
 from jobClassification.config.configuration import ConfigurationManager
 from jobClassification.logging import logger
-from jobClassification.util import *
+from jobClassification.utils.common import *
 
 
 class PredictionPipeline:
     def __init__(self):
         self.config = ConfigurationManager().get_model_evaluation_config()
-        self.onet_embd_path=config.onet_embeddings #"data/processed/embeddings/onet_custom_model_1/embd.pkl"
-        self.model_ckpt = config.model_path # "models/"
-        self.id_to_onet_dict, self.onet_to_id_dict = util.get_onet_dicts()
-        with open(config.lr_model_path, "rb") as fIn:
+        self.onet_embd_path=self.config.onet_embeddings #"data/processed/embeddings/onet_custom_model_1/embd.pkl"
+        self.model_ckpt = self.config.model_path # "models/"
+        self.id_to_onet_dict, self.onet_to_id_dict = get_onet_dicts()
+        with open(self.config.lr_model_path, "rb") as fIn:
             self.LRmodel = pickle.load(fIn)  
     
 
@@ -36,7 +36,7 @@ class PredictionPipeline:
         logger.info(f"Searched for:{job_title,job_body, top_k}")
         logger.info("Getting all ONETs!!")
         
-        job_df = util.get_job_embd_df_frm_title_body(job_title, job_body, model_ckpt=self.model_ckpt)
+        job_df = get_job_embd_df_frm_title_body(job_title, job_body, model_ckpt=self.model_ckpt)
 
         
         X = job_df["JOB_EMBD"].to_list()
@@ -48,8 +48,10 @@ class PredictionPipeline:
         
         all_classes = list(range(0,len(self.onet_to_id_dict)))
         all_classes = np.array(sorted(all_classes))
+        print(all_classes.shape)
 
         new_prob = np.zeros((prob.shape[0], all_classes.size))
+        print(new_prob.shape)
         # Set the columns corresponding to clf.classes_
         new_prob[:, all_classes.searchsorted(loaded_model.classes_)] = prob
         results = []
@@ -61,7 +63,7 @@ class PredictionPipeline:
         
 
         output_df = pd.DataFrame({
-            "Offer" : results
+            "O*NET NAMES" : results
         })
 
         return output_df
