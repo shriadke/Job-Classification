@@ -1,7 +1,10 @@
 # ignore this file
 logs/
 models/
-artifacts/*
+artifacts/data_ingestion/*
+artifacts/data_transformation/*
+artifacts/model_trainer/saved-search-model/*
+artifacts/model_trainer/cls_models/classifier/sbert/*
 
 *.egg-info*
 __pycache__/*
