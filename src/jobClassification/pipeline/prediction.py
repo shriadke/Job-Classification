@@ -57,13 +57,10 @@ class PredictionPipeline:
         results = []
         for i in range(len(new_prob)):
             preds_idx = np.argsort(new_prob[i])[::-1][:top_k]
-            str_preds = [self.id_to_onet_dict[str(idx)] for idx in preds_idx] 
-            print("res:",i, str_preds)
+            str_preds = [(rank+1, self.id_to_onet_dict[str(idx)]) for rank,idx in enumerate(preds_idx)] 
+            # print("res:",i, str_preds)
             results.append(str_preds)
         
 
-        output_df = pd.DataFrame({
-            "O*NET NAMES" : results
-        })
-
+        output_df = pd.DataFrame(results[0],columns=["Rank","O*NET NAMES"])
         return output_df
