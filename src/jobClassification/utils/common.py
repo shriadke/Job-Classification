@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 import nltk
 from nltk.corpus import stopwords
+nltk.download('stopwords')
 import string
 from sentence_transformers import SentenceTransformer, models, util
 from sentence_transformers.util import cos_sim
