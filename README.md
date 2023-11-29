@@ -84,7 +84,7 @@ Following are the stats for given train/test data:
     - #O\*NETs from train+test data = 805 
     - #O\*NETs common in train+test data = 602
 
-Due to the inconsistency in O\*NETs in both sets, I decided to download the original list of all avaliable(1017) O\*NETs and stored in [data/All_Occupations.csv](https://github.com/shriadke/Job-Classification/blob/main/data/All_Occupations.csv). This file will be used for further process, including the given classification task.
+Due to the inconsistency in O\*NETs in both sets, I decided to download the original list of all avaliable(1017) O\*NETs and stored in [data/All_Occupations.csv](https://github.com/shriadke/Job-Classification/blob/main/data/raw/All_Occupations.csv). This file will be used for further process, including the given classification task.
 
 More details can be obtained in [research/00_01_EDA.ipynb](https://github.com/shriadke/Job-Classification/blob/main/research/00_01_EDA.ipynb). 
 
