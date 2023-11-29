@@ -2,7 +2,7 @@
 
 ## Command Line
 
-Easiest way to perform the training pipeline is to run [`main.py`](https://github.com/shriadke/FetchSearch/blob/master/main.py). Make sure the data is in proper location for ingestion.
+Easiest way to perform the training pipeline is to run [`main.py`](https://github.com/shriadke/FetchSearch/blob/main/main.py). Make sure the data is in proper location for ingestion.
 
 ## Using FastAPI
 

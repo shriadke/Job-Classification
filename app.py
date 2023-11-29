@@ -9,6 +9,13 @@ with st.form("search_form"):
     job_title = st.text_input("Enter Job Title*:", key="title", placeholder = "job title")
     job_body = st.text_area("Enter Job Details*:", key="body", placeholder = "job details")
     top_k = st.number_input("Enter options to display (Default 1):", key="topk", placeholder = "How many O*NETs?", min_value=1, max_value=20, value="min")
+
+    model = st.radio(
+    "Which classifier to use?",
+    ["Logistic Regression", "Semantic Search"],
+    captions = ["Default, Custom trained LR model", "slower and uses Sentence transformer's Semantic search utility"],
+    index=0)
+
     submit_status = st.form_submit_button("Search")
 
     if submit_status:
