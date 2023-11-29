@@ -7,7 +7,6 @@ from starlette.responses import RedirectResponse
 from fastapi.responses import Response
 from jobClassification.pipeline.prediction import PredictionPipeline
 
-
 text:str = "Job O*NET Classification!!!"
 
 app = FastAPI()
@@ -43,6 +42,7 @@ async def predict_route(text, body,tk):
 
         obj = PredictionPipeline()
         text = obj.predict(job_title,job_body, top_k)
+        text = Response(text.to_json(), media_type="application/json")
         return text
     except Exception as e:
         raise e

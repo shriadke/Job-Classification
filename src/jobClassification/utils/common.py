@@ -195,7 +195,7 @@ def get_embd(input_docs, model=None, model_ckpt=None, save_embd=False, save_path
     elif model_ckpt:
         if not os.path.exists(model_ckpt):
             model_ckpt = "shriadke/adept-job-msmarco-distilbert-base-v4"
-        print("loading model from ckpt")
+        print("loading model from ckpt: ", model_ckpt)
         sbert_model = SentenceTransformer(model_ckpt)
     else:
         print("loading HF base model")

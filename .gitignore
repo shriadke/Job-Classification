@@ -9,3 +9,5 @@ artifacts/model_trainer/cls_models/classifier/sbert/*
 *.egg-info*
 __pycache__/*
 __pycache__/
+*/__pycache__/
+*.pyc
