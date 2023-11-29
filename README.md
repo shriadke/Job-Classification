@@ -18,17 +18,17 @@ This project is implemented using `Python 3.10`, [`Sentence Transformers`](https
 
 ## Approach
 
-<!-- ###### For detailed approach please read [docs/APPROACH.md](https://github.com/shriadke/JobClassification/blob/main/docs/APPROACH.md) -->
+<!-- ###### For detailed approach please read [docs/APPROACH.md](https://github.com/shriadke/Job-Classification/blob/main/docs/APPROACH.md) -->
 
 The basic approach is as follows:
 
 1. Data Cleaning:
 
-    - Cleaning the text data inputs by removing non-contextual information such as punctuations, stop words, common job post vocabulary ("Description","Salary", etc.). This vocab can be obtained by finding frequent words (via code) and manually adding them to  [`special_words.txt`](https://github.com/shriadke/JobClassification/blob/main/data/raw/special_words.txt)
+    - Cleaning the text data inputs by removing non-contextual information such as punctuations, stop words, common job post vocabulary ("Description","Salary", etc.). This vocab can be obtained by finding frequent words (via code) and manually adding them to  [`special_words.txt`](https://github.com/shriadke/Job-Classification/blob/main/data/raw/special_words.txt)
 
     - Preparing the input string with custom tokens (title and body), and tokenize (with a pre-trained tokenizer for generating embeddings).
 
-    - Given data does not contain all of the O\*NET, thus, all 1017 categories are downloaded from the given website and considered as [final categories](https://github.com/shriadke/JobClassification/blob/main/data/raw/All_Occupations.csv). (_This is an *assumption_*)
+    - Given data does not contain all of the O\*NET, thus, all 1017 categories are downloaded from the given website and considered as [final categories](https://github.com/shriadke/Job-Classification/blob/main/data/raw/All_Occupations.csv). (_This is an *assumption_*)
 
 2. Model basics:
 
@@ -47,7 +47,7 @@ The basic approach is as follows:
 
     - For both the classifiers, training data is split into train and val sets to obtain the val set during training.
 
-    - For more details on these, please refer [research/00_03_classifier_research.ipynb](https://github.com/shriadke/JobClassification/blob/main/research/00_03_classifier_research.ipynb). 
+    - For more details on these, please refer [research/00_03_classifier_research.ipynb](https://github.com/shriadke/Job-Classification/blob/main/research/00_03_classifier_research.ipynb). 
 
 4. Evaluation:
 
@@ -61,8 +61,8 @@ The basic approach is as follows:
 
     - `predict()` is used to perform the testing on custom Job data. The method takes in 3 paramaters: Job title, body, and top_k. This then calls the prediction pipeline which follows the above steps in inference mode. The custom trained model is used to generate input embedding vectors and the output is list of top_k categories from all 1017 O\*NET categories available. This API is exposed using 2 approaches: 
     
-        * [Streamlit App](https://job-classification.streamlit.app/) via [`app.py`](https://github.com/shriadke/JobClassification/blob/main/app.py)
-        * FastAPI localhost integration via [`app_api.py`](https://github.com/shriadke/JobClassification/blob/main/app_api.py). This also contains endpoint to run embedding training pipeline.
+        * [Streamlit App](https://job-classification.streamlit.app/) via [`app.py`](https://github.com/shriadke/Job-Classification/blob/main/app.py)
+        * FastAPI localhost integration via [`app_api.py`](https://github.com/shriadke/Job-Classification/blob/main/app_api.py). This also contains endpoint to run embedding training pipeline.
 
     - More details on how to use and test locally are given in upcoming [Usage section](https://github.com/shriadke/Job-Classification#usage).
 
@@ -84,9 +84,9 @@ Following are the stats for given train/test data:
     - #O\*NETs from train+test data = 805 
     - #O\*NETs common in train+test data = 602
 
-Due to the inconsistency in O\*NETs in both sets, I decided to download the original list of all avaliable(1017) O\*NETs and stored in [data/All_Occupations.csv](https://github.com/shriadke/JobClassification/blob/main/data/All_Occupations.csv). This file will be used for further process, including the given classification task.
+Due to the inconsistency in O\*NETs in both sets, I decided to download the original list of all avaliable(1017) O\*NETs and stored in [data/All_Occupations.csv](https://github.com/shriadke/Job-Classification/blob/main/data/All_Occupations.csv). This file will be used for further process, including the given classification task.
 
-More details can be obtained in [research/00_01_EDA.ipynb](https://github.com/shriadke/JobClassification/blob/main/research/00_01_EDA.ipynb). 
+More details can be obtained in [research/00_01_EDA.ipynb](https://github.com/shriadke/Job-Classification/blob/main/research/00_01_EDA.ipynb). 
 
 ### 2. Embedding
 
@@ -141,46 +141,46 @@ To investigate low performance at k=1 with the test data, I thouroughly checked 
 ## File Structure
 The folder structure is taken from an open-source project repository and I've been using the same throughtout my professional career for various end-to-end projects. It follows standard best practices to software engineering and MLOps along with the pipeline that can be reused with various cloud platforms. The details for each folder is given at the end. Following are the generic files and sample description: 
 
-1. [app.py](https://github.com/shriadke/JobClassification/blob/main/app.py)
-	This is the main app file used to build the `streamlit` app implementation of JobClassification app that uses `predict()` method to obtain the list of O\*NETs.
+1. [app.py](https://github.com/shriadke/Job-Classification/blob/main/app.py)
+	This is the main app file used to build the `streamlit` app implementation of Job-Classification app that uses `predict()` method to obtain the list of O\*NETs.
 
-2. [app_api.py](https://github.com/shriadke/JobClassification/blob/main/app_api.py)
-	This is the another implementation of JobClassification API built with the `FastAPI` package. This contains 2 main APIs:
+2. [app_api.py](https://github.com/shriadke/Job-Classification/blob/main/app_api.py)
+	This is the another implementation of Job-Classification API built with the `FastAPI` package. This contains 2 main APIs:
 	- `/train`: To run the embedding training pipeline using UI provided by FastAPI.
 	- `/predict`: To get the list of offers using the model trained above (This will need to reset the prediction params manually to newly trained model).
 
-3. [main.py](https://github.com/shriadke/JobClassification/blob/main/main.py)
-	This is the Python module that encapsulates all the different methods performed in this pipeline. This module is further used by the API service in the above [app_api.py](https://github.com/shriadke/JobClassification/blob/main/app_api.py) to orchestrate different stages in deployment. 
+3. [main.py](https://github.com/shriadke/Job-Classification/blob/main/main.py)
+	This is the Python module that encapsulates all the different methods performed in this pipeline. This module is further used by the API service in the above [app_api.py](https://github.com/shriadke/Job-Classification/blob/main/app_api.py) to orchestrate different stages in deployment. 
 
-4. [src/jobClassification](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/)
-	This is the main project module with all the components, configs, pipelines and other supporting code. This will be generated as source package after [`setup.py`](https://github.com/shriadke/JobClassification/blob/main/setup.py) is executed.
+4. [src/jobClassification](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/)
+	This is the main project module with all the components, configs, pipelines and other supporting code. This will be generated as source package after [`setup.py`](https://github.com/shriadke/Job-Classification/blob/main/setup.py) is executed.
 
-5. [requirements.txt](https://github.com/shriadke/JobClassification/blob/main/requirements.txt)
+5. [requirements.txt](https://github.com/shriadke/Job-Classification/blob/main/requirements.txt)
 	This file contains the necessary packages required for this project.
 
-6. [Dockerfile](https://github.com/shriadke/JobClassification/blob/main/Dockerfile)
+6. [Dockerfile](https://github.com/shriadke/Job-Classification/blob/main/Dockerfile)
 	This file contains build instructions for API deployment using Docker. This step is not functional at this point.
 
-7. [data/](https://github.com/shriadke/JobClassification/blob/main/data/)
+7. [data/](https://github.com/shriadke/Job-Classification/blob/main/data/)
 	This folder contains all raw and processed data along with embeddings.
 
-8. [research/](https://github.com/shriadke/JobClassification/blob/main/research/)
+8. [research/](https://github.com/shriadke/Job-Classification/blob/main/research/)
 	This folder contains all the research steps performed before incorporating the code into src.
 
 ### Training Pipeline workflow
 
-The training pipeline is invoked using [`main.py`](https://github.com/shriadke/JobClassification/blob/main/main.py). There are 5 basic pipelines in the given order: `Data Ingestion --> Data Validation --> Data Transformation --> Model Trainer --> Model Evaluation` , and a separate Prediction pipeline is provided for `predict()` method. 
+The training pipeline is invoked using [`main.py`](https://github.com/shriadke/Job-Classification/blob/main/main.py). There are 5 basic pipelines in the given order: `Data Ingestion --> Data Validation --> Data Transformation --> Model Trainer --> Model Evaluation` , and a separate Prediction pipeline is provided for `predict()` method. 
 
-Steps to create a pipeline are listed in [docs/workflows.md](https://github.com/shriadke/JobClassification/blob/main/docs/workflows.md). Following are the main files involved in any given pipeline from `main.py`:
+Steps to create a pipeline are listed in [docs/workflows.md](https://github.com/shriadke/Job-Classification/blob/main/docs/workflows.md). Following are the main files involved in any given pipeline from `main.py`:
 
-1. `<Name>Pipeline()` class: Invokes the corresponding pipeline configuration from [`configuration.py`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/config/configuration.py) and required [`component`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/components) methods.
-2. [`configuration.py`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/config/configuration.py) : File to define and load all the required configurations for different pipelines. This includes the [`entities`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/entity/__init__.py) defined in [`config.yaml`](https://github.com/shriadke/JobClassification/blob/main/config/config.yaml).
-3. [`components`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/components/) : This is the main folder that contains corresponding pipeline's business logic and necessary callable method implementations.
-4. [`utils/common.py`](https://github.com/shriadke/JobClassification/blob/main/src/jobClassification/utils/common.py) : Provides common methods implementation used across the project such as file download, cleaning, embedding loading, processing, etc.
+1. `<Name>Pipeline()` class: Invokes the corresponding pipeline configuration from [`configuration.py`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/config/configuration.py) and required [`component`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/components) methods.
+2. [`configuration.py`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/config/configuration.py) : File to define and load all the required configurations for different pipelines. This includes the [`entities`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/entity/__init__.py) defined in [`config.yaml`](https://github.com/shriadke/Job-Classification/blob/main/config/config.yaml).
+3. [`components`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/components/) : This is the main folder that contains corresponding pipeline's business logic and necessary callable method implementations.
+4. [`utils/common.py`](https://github.com/shriadke/Job-Classification/blob/main/src/jobClassification/utils/common.py) : Provides common methods implementation used across the project such as file download, cleaning, embedding loading, processing, etc.
 
 This architecture can be modified as per the project's overall needs to follow standard software engineering practices.
 
-Following figure shows the basic system that can be implemented for this (details in [docs/USAGE.md](https://github.com/shriadke/JobClassification/blob/main/docs/USAGE.md)):
+Following figure shows the basic system that can be implemented for this (details in [docs/USAGE.md](https://github.com/shriadke/Job-Classification/blob/main/docs/USAGE.md)):
 
 
 <img src="docs/system_architecture.png" alt="System Architecture" width="500"/>
@@ -190,9 +190,9 @@ Following figure shows the basic system that can be implemented for this (detail
 
 Apart from the demo above, if you wish to run the project locally, then follow the steps below:
 
-- Clone this repo using `git clone  https://github.com/shriadke/JobClassification`.
+- Clone this repo using `git clone  https://github.com/shriadke/Job-Classification`.
 
-- As described in [File Structure](https://github.com/shriadke/JobClassification#file-structure), you can verify the files.
+- As described in [File Structure](https://github.com/shriadke/Job-Classification#file-structure), you can verify the files.
 
 - Create an environment using  `conda create -n jobClass python=3.10`
 
@@ -208,7 +208,7 @@ The Search App will be deployed on your chosen platform.
 
 ### *Have some fun with it, because I did :wink: !!*
 
-More details on excecution methods for training/deployment can be found in [Usage.md](https://github.com/shriadke/JobClassification/blob/main/docs/Usage.md)
+More details on excecution methods for training/deployment can be found in [Usage.md](https://github.com/shriadke/Job-Classification/blob/main/docs/Usage.md)
 
 ## Future Work
 
